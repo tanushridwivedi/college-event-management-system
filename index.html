@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CampusEvents — College Event Management System</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
+</head>
+<body>
+
+<div class="app">
+  <div class="topbar">
+    <div class="logo"><i class="ti ti-school"></i> CampusEvents</div>
+    <div class="nav">
+      <button class="nav-btn active" onclick="showPage('dashboard',this)"><i class="ti ti-layout-dashboard"></i> Dashboard</button>
+      <button class="nav-btn" onclick="showPage('events',this)"><i class="ti ti-calendar-event"></i> Events</button>
+      <button class="nav-btn" onclick="showPage('registrations',this)"><i class="ti ti-list-check"></i> Registrations</button>
+      <button class="nav-btn" onclick="showPage('admin',this)"><i class="ti ti-plus"></i> Add Event</button>
+    </div>
+    <div class="user-pill">
+      <div class="avatar">RK</div> Rahul Kumar
+    </div>
+  </div>
+
+  <!-- Dashboard -->
+  <div id="page-dashboard" class="page active">
+    <div class="metrics">
+      <div class="metric"><div class="metric-label">Total events</div><div class="metric-value" id="m-total">8</div><div class="metric-sub">This semester</div></div>
+      <div class="metric"><div class="metric-label">Registered</div><div class="metric-value" id="m-reg">3</div><div class="metric-sub">Your events</div></div>
+      <div class="metric"><div class="metric-label">Upcoming</div><div class="metric-value" id="m-up">5</div><div class="metric-sub">Next 30 days</div></div>
+      <div class="metric"><div class="metric-label">Total seats</div><div class="metric-value">620</div><div class="metric-sub">Across all events</div></div>
+    </div>
+    <div class="section-title">Upcoming Events</div>
+    <div class="events-grid" id="dash-events"></div>
+    <div class="card-white">
+      <div class="section-title" style="margin-bottom:8px">Recent Notifications</div>
+      <div class="notif-item">
+        <div class="notif-icon" style="background:#E1F5EE;color:#0F6E56"><i class="ti ti-check"></i></div>
+        <div><div class="notif-text">Your registration for <b>Hackathon 2025</b> is confirmed.</div><div class="notif-time">2 hours ago</div></div>
+      </div>
+      <div class="notif-item">
+        <div class="notif-icon" style="background:#EEEDFE;color:#3C3489"><i class="ti ti-bell"></i></div>
+        <div><div class="notif-text">New event added: <b>Cultural Night</b> — seats filling fast!</div><div class="notif-time">Yesterday</div></div>
+      </div>
+      <div class="notif-item">
+        <div class="notif-icon" style="background:#FAEEDA;color:#633806"><i class="ti ti-clock"></i></div>
+        <div><div class="notif-text">Reminder: <b>Tech Talk</b> is tomorrow at 3:00 PM.</div><div class="notif-time">2 days ago</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Events -->
+  <div id="page-events" class="page">
+    <div class="search-bar">
+      <input type="text" placeholder="Search events..." id="search-input" oninput="renderEvents()">
+      <div class="filter-btns">
+        <button class="filter-btn active" onclick="setFilter('All',this)">All</button>
+        <button class="filter-btn" onclick="setFilter('Tech',this)">Tech</button>
+        <button class="filter-btn" onclick="setFilter('Cultural',this)">Cultural</button>
+        <button class="filter-btn" onclick="setFilter('Sports',this)">Sports</button>
+        <button class="filter-btn" onclick="setFilter('Academic',this)">Academic</button>
+      </div>
+    </div>
+    <div class="events-grid" id="all-events"></div>
+  </div>
+
+  <!-- Registrations -->
+  <div id="page-registrations" class="page">
+    <div class="section-title">My Registrations</div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Event</th><th>Category</th><th>Date</th><th>Venue</th><th>Status</th><th>Action</th></tr>
+        </thead>
+        <tbody id="reg-table"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Add Event -->
+  <div id="page-admin" class="page">
+    <div class="card-white" style="max-width:600px">
+      <div class="section-title" style="margin-bottom:16px">Create New Event</div>
+      <div class="form-grid">
+        <div class="form-group full"><label>Event Name</label><input type="text" id="f-name" placeholder="e.g. Annual Tech Fest"></div>
+        <div class="form-group">
+          <label>Category</label>
+          <select id="f-cat"><option>Tech</option><option>Cultural</option><option>Sports</option><option>Academic</option></select>
+        </div>
+        <div class="form-group"><label>Date</label><input type="date" id="f-date"></div>
+        <div class="form-group"><label>Time</label><input type="time" id="f-time" value="14:00"></div>
+        <div class="form-group"><label>Venue</label><input type="text" id="f-venue" placeholder="e.g. Main Auditorium"></div>
+        <div class="form-group"><label>Total Seats</label><input type="number" id="f-seats" placeholder="100" min="1"></div>
+        <div class="form-group full"><label>Description</label><textarea id="f-desc" placeholder="Brief description of the event..."></textarea></div>
+        <div class="form-group full"><label>Organizer / Club</label><input type="text" id="f-org" placeholder="e.g. CS Department"></div>
+      </div>
+      <button class="submit-btn" onclick="addEvent()"><i class="ti ti-plus"></i> Create Event</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="app.js"></script>
+</body>
+</html>
